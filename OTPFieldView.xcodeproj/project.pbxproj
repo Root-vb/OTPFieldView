@@ -10,7 +10,19 @@
 		13EDE57623278D8700B45FF6 /* OTPFieldView.h in Headers */ = {isa = PBXBuildFile; fileRef = 13EDE57423278D8700B45FF6 /* OTPFieldView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		13EDE57D23278DC400B45FF6 /* OTPFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EDE57C23278DC400B45FF6 /* OTPFieldView.swift */; };
 		13EDE57F23278E9A00B45FF6 /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EDE57E23278E9A00B45FF6 /* OTPTextField.swift */; };
+		13EDE5872327A8C400B45FF6 /* OTPFieldViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EDE5862327A8C400B45FF6 /* OTPFieldViewTests.swift */; };
+		13EDE5892327A8C400B45FF6 /* OTPFieldView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13EDE57123278D8700B45FF6 /* OTPFieldView.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		13EDE58A2327A8C400B45FF6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 13EDE56823278D8700B45FF6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13EDE57023278D8700B45FF6;
+			remoteInfo = OTPFieldView;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		13EDE57123278D8700B45FF6 /* OTPFieldView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OTPFieldView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -18,6 +30,9 @@
 		13EDE57523278D8700B45FF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13EDE57C23278DC400B45FF6 /* OTPFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPFieldView.swift; sourceTree = "<group>"; };
 		13EDE57E23278E9A00B45FF6 /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
+		13EDE5842327A8C400B45FF6 /* OTPFieldViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OTPFieldViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		13EDE5862327A8C400B45FF6 /* OTPFieldViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPFieldViewTests.swift; sourceTree = "<group>"; };
+		13EDE5882327A8C400B45FF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +43,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		13EDE5812327A8C400B45FF6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13EDE5892327A8C400B45FF6 /* OTPFieldView.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -35,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				13EDE57323278D8700B45FF6 /* OTPFieldView */,
+				13EDE5852327A8C400B45FF6 /* OTPFieldViewTests */,
 				13EDE57223278D8700B45FF6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				13EDE57123278D8700B45FF6 /* OTPFieldView.framework */,
+				13EDE5842327A8C400B45FF6 /* OTPFieldViewTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -56,6 +81,15 @@
 				13EDE57E23278E9A00B45FF6 /* OTPTextField.swift */,
 			);
 			path = OTPFieldView;
+			sourceTree = "<group>";
+		};
+		13EDE5852327A8C400B45FF6 /* OTPFieldViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				13EDE5862327A8C400B45FF6 /* OTPFieldViewTests.swift */,
+				13EDE5882327A8C400B45FF6 /* Info.plist */,
+			);
+			path = OTPFieldViewTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -90,18 +124,40 @@
 			productReference = 13EDE57123278D8700B45FF6 /* OTPFieldView.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		13EDE5832327A8C400B45FF6 /* OTPFieldViewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13EDE58C2327A8C400B45FF6 /* Build configuration list for PBXNativeTarget "OTPFieldViewTests" */;
+			buildPhases = (
+				13EDE5802327A8C400B45FF6 /* Sources */,
+				13EDE5812327A8C400B45FF6 /* Frameworks */,
+				13EDE5822327A8C400B45FF6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				13EDE58B2327A8C400B45FF6 /* PBXTargetDependency */,
+			);
+			name = OTPFieldViewTests;
+			productName = OTPFieldViewTests;
+			productReference = 13EDE5842327A8C400B45FF6 /* OTPFieldViewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		13EDE56823278D8700B45FF6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1030;
 				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = "Vaibhav Bhasin";
 				TargetAttributes = {
 					13EDE57023278D8700B45FF6 = {
 						CreatedOnToolsVersion = 10.3;
 						LastSwiftMigration = 1030;
+					};
+					13EDE5832327A8C400B45FF6 = {
+						CreatedOnToolsVersion = 10.3;
 					};
 				};
 			};
@@ -118,12 +174,20 @@
 			projectRoot = "";
 			targets = (
 				13EDE57023278D8700B45FF6 /* OTPFieldView */,
+				13EDE5832327A8C400B45FF6 /* OTPFieldViewTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		13EDE56F23278D8700B45FF6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13EDE5822327A8C400B45FF6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -142,7 +206,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		13EDE5802327A8C400B45FF6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13EDE5872327A8C400B45FF6 /* OTPFieldViewTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		13EDE58B2327A8C400B45FF6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13EDE57023278D8700B45FF6 /* OTPFieldView */;
+			targetProxy = 13EDE58A2327A8C400B45FF6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		13EDE57723278D8700B45FF6 /* Debug */ = {
@@ -320,6 +400,42 @@
 			};
 			name = Release;
 		};
+		13EDE58D2327A8C400B45FF6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7X5CB8QV9R;
+				INFOPLIST_FILE = OTPFieldViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Vaibhav.OTPFieldViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		13EDE58E2327A8C400B45FF6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7X5CB8QV9R;
+				INFOPLIST_FILE = OTPFieldViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Vaibhav.OTPFieldViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -337,6 +453,15 @@
 			buildConfigurations = (
 				13EDE57A23278D8700B45FF6 /* Debug */,
 				13EDE57B23278D8700B45FF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13EDE58C2327A8C400B45FF6 /* Build configuration list for PBXNativeTarget "OTPFieldViewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13EDE58D2327A8C400B45FF6 /* Debug */,
+				13EDE58E2327A8C400B45FF6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
