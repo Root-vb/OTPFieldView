@@ -6,54 +6,76 @@
 //  Copyright © 2019 Vaibhav Bhasin. All rights reserved.
 //
 
-import Foundation
+//    MIT License
+//
+//    Copyright (c) 2019 Vaibhav Bhasin
+//
+//    Permission is hereby granted, free of charge, to any person obtaining a copy
+//    of this software and associated documentation files (the "Software"), to deal
+//    in the Software without restriction, including without limitation the rights
+//    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//    copies of the Software, and to permit persons to whom the Software is
+//    furnished to do so, subject to the following conditions:
+//
+//    The above copyright notice and this permission notice shall be included in all
+//    copies or substantial portions of the Software.
+//
+//    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//    SOFTWARE.
+
 import UIKit
 
-protocol OTPFieldViewDelegate: class {
+@objc public protocol OTPFieldViewDelegate: class {
     
     func shouldBecomeFirstResponderForOTP(otpTextFieldIndex index: Int) -> Bool
     func enteredOTP(otp: String)
     func hasEnteredAllOTP(hasEnteredAll: Bool) -> Bool
 }
 
-@objc
-public class OTPFieldView: UIView {
+@objc public enum DisplayType: Int {
+    case circular
+    case roundedCorner
+    case square
+    case diamond
+    case underlinedBottom
+}
+
+/// Different input type for OTP fields.
+@objc public enum KeyboardType: Int {
+    case numeric
+    case alphabet
+    case alphaNumeric
+}
+
+@objc public class OTPFieldView: UIView {
     
     /// Different display type for text fields.
-    enum DisplayType {
-        case circular
-        case roundedCorner
-        case square
-        case diamond
-        case underlinedBottom
-    }
     
-    /// Different input type for OTP fields.
-    enum KeyboardType: Int {
-        case numeric
-        case alphabet
-        case alphaNumeric
-    }
     
-    var displayType: DisplayType = .circular
-    var fieldsCount: Int = 4
-    var otpInputType: KeyboardType = .numeric
-    var fieldFont: UIFont = UIFont.systemFont(ofSize: 20)
-    var secureEntry: Bool = false
-    var hideEnteredText: Bool = false
-    var requireCursor: Bool = true
-    var cursorColor: UIColor = UIColor.blue
-    var fieldSize: CGFloat = 60
-    var separatorSpace: CGFloat = 16
-    var fieldBorderWidth: CGFloat = 0
-    var shouldAllowIntermediateEditing: Bool = true
-    var emptyBackgroundColor: UIColor = UIColor.clear
-    var filledBackgroundColor: UIColor = UIColor.clear
-    var emptyBorderColor: UIColor = UIColor.gray
-    var filledBorderColor: UIColor = UIColor.clear
-    var errorBorderColor: UIColor?
+    public var displayType: DisplayType = .circular
+    public var fieldsCount: Int = 4
+    public var otpInputType: KeyboardType = .numeric
+    public var fieldFont: UIFont = UIFont.systemFont(ofSize: 20)
+    public var secureEntry: Bool = false
+    public var hideEnteredText: Bool = false
+    public var requireCursor: Bool = true
+    public var cursorColor: UIColor = UIColor.blue
+    public var fieldSize: CGFloat = 60
+    public var separatorSpace: CGFloat = 16
+    public var fieldBorderWidth: CGFloat = 1
+    public var shouldAllowIntermediateEditing: Bool = true
+    public var defaultBackgroundColor: UIColor = UIColor.clear
+    public var filledBackgroundColor: UIColor = UIColor.clear
+    public var defaultBorderColor: UIColor = UIColor.gray
+    public var filledBorderColor: UIColor = UIColor.clear
+    public var errorBorderColor: UIColor?
     
-    weak var delegate: OTPFieldViewDelegate?
+    public weak var delegate: OTPFieldViewDelegate?
     
     fileprivate var secureEntryData = [String]()
     
@@ -61,9 +83,7 @@ public class OTPFieldView: UIView {
         super.awakeFromNib()
     }
     
-    //MARK: Public functions
-    /// Call this method to create the OTP field view. This method should be called at the last after necessary customization needed. If any property is modified at a later stage is simply ignored.
-    func initializeUI() {
+    public func initializeUI() {
         layer.masksToBounds = true
         layoutIfNeeded()
         
@@ -75,8 +95,6 @@ public class OTPFieldView: UIView {
         (viewWithTag(1) as? OTPTextField)?.becomeFirstResponder()
     }
     
-    //MARK: Private functions
-    // Set up the fields
     fileprivate func initializeOTPFields() {
         secureEntryData.removeAll()
         
@@ -91,12 +109,10 @@ public class OTPFieldView: UIView {
         }
     }
     
-    // Initalize the required OTP fields
     fileprivate func getOTPField(forIndex index: Int) -> OTPTextField {
         let hasOddNumberOfFields = (fieldsCount % 2 == 1)
         var fieldFrame = CGRect(x: 0, y: 0, width: fieldSize, height: fieldSize)
         
-        // If odd, then center of self will be center of middle field. If false, then center of self will be center of space between 2 middle fields.
         if hasOddNumberOfFields {
             // Calculate from middle each fields x and y values so as to align the entire view in center
             fieldFrame.origin.x = bounds.size.width / 2 - (CGFloat(fieldsCount / 2 - index) * (fieldSize + separatorSpace) + fieldSize / 2)
@@ -124,7 +140,7 @@ public class OTPFieldView: UIView {
         }
         
         // Set the border values if needed
-        otpField.otpBorderColor = emptyBorderColor
+        otpField.otpBorderColor = defaultBorderColor
         otpField.otpBorderWidth = fieldBorderWidth
         
         if requireCursor {
@@ -135,7 +151,7 @@ public class OTPFieldView: UIView {
         }
         
         // Set the default background color when text not set
-        otpField.backgroundColor = emptyBackgroundColor
+        otpField.backgroundColor = defaultBackgroundColor
         
         // Finally create the fields
         otpField.initalizeUI(forFieldType: displayType)
@@ -143,7 +159,6 @@ public class OTPFieldView: UIView {
         return otpField
     }
     
-    // Check if previous text fields have been entered or not before textfield can edit the selected field. This will have effect only if
     fileprivate func isPreviousFieldsEntered(forTextField textField: UITextField) -> Bool {
         var isTextFilled = true
         var nextOTPField: UITextField?
@@ -181,8 +196,8 @@ public class OTPFieldView: UIView {
                     otpField = getOTPField(forIndex: index)
                 }
                 
-                let fieldBackgroundColor = (otpField?.text ?? "").isEmpty ? emptyBackgroundColor : filledBackgroundColor
-                let fieldBorderColor = (otpField?.text ?? "").isEmpty ? emptyBorderColor : filledBorderColor
+                let fieldBackgroundColor = (otpField?.text ?? "").isEmpty ? defaultBackgroundColor : filledBackgroundColor
+                let fieldBorderColor = (otpField?.text ?? "").isEmpty ? defaultBorderColor : filledBorderColor
                 
                 if displayType == .diamond || displayType == .underlinedBottom {
                     otpField?.shapeLayer.fillColor = fieldBackgroundColor.cgColor
@@ -258,7 +273,7 @@ extension OTPFieldView: UITextFieldDelegate {
             }
             else {
                 if secureEntry {
-                    textField.text = "*"
+                    textField.text = "•"
                 }
                 else {
                     textField.text = string
@@ -313,11 +328,11 @@ extension OTPFieldView: UITextFieldDelegate {
         textField.text = ""
         
         if displayType == .diamond || displayType == .underlinedBottom {
-            (textField as! OTPTextField).shapeLayer.fillColor = emptyBackgroundColor.cgColor
-            (textField as! OTPTextField).shapeLayer.strokeColor = emptyBorderColor.cgColor
+            (textField as! OTPTextField).shapeLayer.fillColor = defaultBackgroundColor.cgColor
+            (textField as! OTPTextField).shapeLayer.strokeColor = defaultBorderColor.cgColor
         } else {
-            textField.backgroundColor = emptyBackgroundColor
-            textField.layer.borderColor = emptyBorderColor.cgColor
+            textField.backgroundColor = defaultBackgroundColor
+            textField.layer.borderColor = defaultBorderColor.cgColor
         }
         
         textField.becomeFirstResponder()
