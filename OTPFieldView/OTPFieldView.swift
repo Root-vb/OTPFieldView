@@ -74,11 +74,14 @@ import UIKit
     public var defaultBorderColor: UIColor = UIColor.gray
     public var filledBorderColor: UIColor = UIColor.clear
     public var errorBorderColor: UIColor?
-    
+    //// custom OTP count must be equal to fields count you set when initialiizing UI
+       public var customOTP: [String] = []{
+           didSet{
+               setCustomOTP()
+           }
+       }
     public weak var delegate: OTPFieldViewDelegate?
-    
     fileprivate var secureEntryData = [String]()
-    
     override public func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -244,6 +247,52 @@ import UIKit
         }
     }
     
+    ////Function will set custom OTP for fields you initialize in OTP View
+       fileprivate func setCustomOTP()
+       {
+           if customOTP.count == fieldsCount{
+               secureEntryData.removeAll()
+               for index in stride(from: 1, to: fieldsCount + 1, by: 1) {
+                   guard let currentTextField = viewWithTag(index) as? UITextField else{
+                       return
+                   }
+                   secureEntryData.append(customOTP[index - 1])
+                   
+                   if hideEnteredText {
+                       currentTextField.text = " "
+                   }
+                   else {
+                       if secureEntry {
+                           currentTextField.text = "•"
+                       }
+                       else {
+                           currentTextField.text = customOTP[index - 1]
+                       }
+                   }
+                   currentTextField.resignFirstResponder()
+           
+                  setFilledLayout(textField: currentTextField)
+                   
+               }
+             
+               calculateEnteredOTPSTring(isDeleted: false)
+               }else{
+                   print("Mismatched: Custom OTP can not set because of mismatched values of fieldsCount \(fieldsCount) and givenOTP \(customOTP.count). ")
+               }
+       }
+      ////Function will set filled UI for OTP Field
+       fileprivate func setFilledLayout(textField:UITextField)
+       {
+           if displayType == .diamond || displayType == .underlinedBottom {
+               (textField as! OTPTextField).shapeLayer.fillColor = filledBackgroundColor.cgColor
+               (textField as! OTPTextField).shapeLayer.strokeColor = filledBorderColor.cgColor
+           }
+           else {
+               textField.backgroundColor = filledBackgroundColor
+               textField.layer.borderColor = filledBorderColor.cgColor
+           }
+       }
+    
 }
 
 extension OTPFieldView: UITextFieldDelegate {
@@ -279,18 +328,10 @@ extension OTPFieldView: UITextFieldDelegate {
                     textField.text = string
                 }
             }
-            
-            if displayType == .diamond || displayType == .underlinedBottom {
-                (textField as! OTPTextField).shapeLayer.fillColor = filledBackgroundColor.cgColor
-                (textField as! OTPTextField).shapeLayer.strokeColor = filledBorderColor.cgColor
-            }
-            else {
-                textField.backgroundColor = filledBackgroundColor
-                textField.layer.borderColor = filledBorderColor.cgColor
-            }
+            ////Set Filled UI
+            setFilledLayout(textField: textField)
             
             let nextOTPField = viewWithTag(textField.tag + 1)
-            
             if let nextOTPField = nextOTPField {
                 nextOTPField.becomeFirstResponder()
             }
