@@ -74,6 +74,8 @@ import UIKit
     public var defaultBorderColor: UIColor = UIColor.gray
     public var filledBorderColor: UIColor = UIColor.clear
     public var errorBorderColor: UIColor?
+    public var fieldTextColor: UIColor = UIColor.black
+
     
     public weak var delegate: OTPFieldViewDelegate?
     
@@ -128,6 +130,7 @@ import UIKit
         otpField.delegate = self
         otpField.tag = index + 1
         otpField.font = fieldFont
+        otpField.textColor = fieldTextColor
         
         // Set input type for OTP fields
         switch otpInputType {
