@@ -259,6 +259,11 @@ extension OTPFieldView: UITextFieldDelegate {
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let replacedText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
         
+        // Check for custom keyboards in case of numeric otp input.
+        if otpInputType == .numeric && replacedText.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) != nil {
+            return false
+        }
+        
         // Check since only alphabet keyboard is not available in iOS
         if !replacedText.isEmpty && otpInputType == .alphabet && replacedText.rangeOfCharacter(from: .letters) == nil {
             return false
