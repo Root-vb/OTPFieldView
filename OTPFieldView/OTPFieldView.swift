@@ -247,6 +247,7 @@ import UIKit
 }
 
 extension OTPFieldView: UITextFieldDelegate {
+    
     public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         let shouldBeginEditing = delegate?.shouldBecomeFirstResponderForOTP(otpTextFieldIndex: (textField.tag - 1)) ?? true
         if shouldBeginEditing {
@@ -263,28 +264,39 @@ extension OTPFieldView: UITextFieldDelegate {
         if !replacedText.isEmpty && otpInputType == .alphabet && replacedText.rangeOfCharacter(from: .letters) == nil {
             return false
         }
+        // Ignore alphabet characters when the keyboard type is numeric
+        if !replacedText.isEmpty && otpInputType == .numeric && replacedText.rangeOfCharacter(from: .letters) != nil {
+            return false
+        }
+        // When the pasted string matched fieldsCount then populate all characters into the OTP field
+        if string.count == fieldsCount {
+            for index in stride(from: 0, to: fieldsCount, by: 1) {
+                let text = String(string[index])
+                secureEntryData[index] = text
+                var otpField = viewWithTag(index + 1) as? OTPTextField
+                
+                if otpField == nil {
+                    otpField = getOTPField(forIndex: index)
+                }
+                fill(otpField, with: text)
+            }
+            textField.resignFirstResponder()
+            calculateEnteredOTPSTring(isDeleted: false)
+            return false
+        }
         
         if replacedText.count >= 1 {
+            // Only accept one character each time
+            guard string.count == 1 else { return false }
             // If field has a text already, then replace the text and move to next field if present
             secureEntryData[textField.tag - 1] = string
             
-            if hideEnteredText {
-                textField.text = " "
-            }
-            else {
-                if secureEntry {
-                    textField.text = "•"
-                }
-                else {
-                    textField.text = string
-                }
-            }
+            fill(textField, with: string)
             
             if displayType == .diamond || displayType == .underlinedBottom {
                 (textField as! OTPTextField).shapeLayer.fillColor = filledBackgroundColor.cgColor
                 (textField as! OTPTextField).shapeLayer.strokeColor = filledBorderColor.cgColor
-            }
-            else {
+            } else {
                 textField.backgroundColor = filledBackgroundColor
                 textField.layer.borderColor = filledBorderColor.cgColor
             }
@@ -293,15 +305,13 @@ extension OTPFieldView: UITextFieldDelegate {
             
             if let nextOTPField = nextOTPField {
                 nextOTPField.becomeFirstResponder()
-            }
-            else {
+            } else {
                 textField.resignFirstResponder()
             }
             
             // Get the entered string
             calculateEnteredOTPSTring(isDeleted: false)
-        }
-        else {
+        } else {
             let currentText = textField.text ?? ""
             
             if textField.tag > 1 && currentText.isEmpty {
@@ -339,5 +349,24 @@ extension OTPFieldView: UITextFieldDelegate {
         
         // Get the entered string
         calculateEnteredOTPSTring(isDeleted: true)
+    }
+    
+    private func fill(_ textField: UITextField?, with text: String) {
+        if hideEnteredText {
+            textField?.text = " "
+        } else {
+            if secureEntry {
+                textField?.text = "•"
+            } else {
+                textField?.text = text
+            }
+        }
+    }
+}
+
+extension StringProtocol {
+    
+    subscript(_ offset: Int) -> Element {
+        self[index(startIndex, offsetBy: offset)]
     }
 }
