@@ -87,15 +87,6 @@ extension OtpViewController: OTPFieldViewDelegate {
 - **shouldBecomeFirstResponderForOTP()**: Show keyboard automatically.
 - **enteredOTP()**: Get entered pin.
 
-
-### Set full otp code
-
-```swift
-self.otpTextFieldView.setFullOTPCode("22222")
-```
-
-- **setFullOTPCode()**: Use in case of setting OTP code in OTPTextViewField programmatically.
-
 ### Properties
 
 - **.displayType**: Display type for Text Field.

@@ -243,15 +243,7 @@ import UIKit
             }
         }
     }
-	
-	public func setFullOTPCode(_ code: String) {
-		secureEntryData = code.map { String($0) }
-		for index in 0 ..< secureEntryData.count {
-			if let otpField = viewWithTag(index + 1) as? OTPTextField {
-				otpField.text = secureEntryData[index]
-			}
-		}
-	}
+    
 }
 
 extension OTPFieldView: UITextFieldDelegate {
