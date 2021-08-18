@@ -310,12 +310,6 @@ extension OTPFieldView: UITextFieldDelegate {
                 }
             } else {
                 deleteText(in: textField)
-                
-                if textField.tag > 1 {
-                    if let prevOTPField = viewWithTag(textField.tag - 1) as? UITextField {
-                        prevOTPField.becomeFirstResponder()
-                    }
-                }
             }
         }
         
