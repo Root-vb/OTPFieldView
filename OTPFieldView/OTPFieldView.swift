@@ -50,6 +50,7 @@ import UIKit
     case numeric
     case alphabet
     case alphaNumeric
+    case ascii
 }
 
 @objc public class OTPFieldView: UIView {
@@ -137,6 +138,8 @@ import UIKit
             otpField.keyboardType = .alphabet
         case .alphaNumeric:
             otpField.keyboardType = .namePhonePad
+        case .ascii:
+            otpField.keyboardType = .asciiCapableNumberPad
         }
         
         // Set the border values if needed
