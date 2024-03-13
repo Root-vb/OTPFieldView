@@ -250,6 +250,9 @@ extension OTPFieldView: UITextFieldDelegate {
     public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         let shouldBeginEditing = delegate?.shouldBecomeFirstResponderForOTP(otpTextFieldIndex: (textField.tag - 1)) ?? true
         if shouldBeginEditing {
+            DispatchQueue.main.async {
+                textField.selectedTextRange = textField.textRange(from: textField.endOfDocument, to: textField.endOfDocument)
+            }
             return isPreviousFieldsEntered(forTextField: textField)
         }
         
